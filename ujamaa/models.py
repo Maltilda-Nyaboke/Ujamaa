@@ -40,6 +40,9 @@ class Profile(models.Model):
     contact = models.CharField(max_length=50, blank=True, null=True)
     joined=models.DateTimeField(auto_now=True)
 
+    def save_profile(self):
+        self.save()
+
 class Business(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
