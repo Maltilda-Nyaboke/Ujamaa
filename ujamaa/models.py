@@ -20,7 +20,15 @@ class Location(models.Model):
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=75)
+    image =models.ImageField(upload_to='images')
     location = models.ForeignKey(Location,on_delete=models.CASCADE)
+    occupants_count = models.IntegerField(default=0)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def create_neigborhood(self):
+        self.save()
 
 
 class Profile(models.Model):
