@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .forms import RegisterForm,UpdateProfileForm,AddProjectForm,RatingForm
+from .forms import RegisterForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -21,4 +21,4 @@ def register(request):
             return redirect('index.html')
     else:        
         form = RegisterForm()
-    return render(request, 'register.html')    
+    return render(request, 'register.html',{'form':form})    
