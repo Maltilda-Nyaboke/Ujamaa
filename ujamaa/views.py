@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .forms import RegisterForm
+from .forms import RegisterForm,UpdateProfileForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login as auth_login
@@ -47,4 +47,16 @@ def profile(request):
     return render(request, 'profile.html')  
 
 def update_profile(request):
+    form = UpdateProfileForm()
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile.profile_photo = form.cleaned_data.get('profile_photo')
+            profile.bio = form.cleaned_data.get('bio')
+            profile.save()
+            return redirect('profile')
+        else:
+            form = UpdateProfileForm() 
     return render(request, 'update_profile.html')       
