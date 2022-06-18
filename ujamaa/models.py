@@ -27,11 +27,16 @@ class Profile(models.Model):
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
-    image =models.ImageField(upload_to='images')
     email = models.EmailField(max_length=50)
     description = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
 
-    
+class Post(models.Model):
+    title = models.CharField(max_length=50)
+    image =models.ImageField(upload_to='images')
+    content = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, default=1)
+    posted = models.DateTimeField(auto_now_add=True)    
 
