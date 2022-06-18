@@ -37,4 +37,8 @@ def login_user(request):
         else:
             return render(request,'registration/login.html',context)  
     else:
-        return render(request, 'registration/login.html',context)       
+        return render(request, 'registration/login.html',context)  
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')                
