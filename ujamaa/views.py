@@ -4,6 +4,7 @@ from django.shortcuts import render,redirect
 from .forms import RegisterForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import *
@@ -18,12 +19,12 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index.html')
+            return redirect('login')
     else:        
         form = RegisterForm()
-        return render(request, 'register.html',{'form':form}) 
+    return render(request, 'register.html',{'form':form}) 
 
-def login(request):
+def login_user(request):
     form = AuthenticationForm()
     context = {'form':form}
     if request.method == 'POST':
@@ -31,7 +32,7 @@ def login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
+            login(request,user)
             return redirect('/')
         else:
             return render(request,'registration/login.html',context)  
