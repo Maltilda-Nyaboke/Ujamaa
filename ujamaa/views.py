@@ -44,4 +44,7 @@ def logout_user(request):
     return redirect('login')                
 
 def profile(request):
-    return render(request, 'profile.html')     
+    return render(request, 'profile.html')  
+
+def update_profile(request):
+    return render(request, 'update_profile.html')       
