@@ -44,12 +44,16 @@ def logout_user(request):
     return redirect('login')                
 
 def profile(request):
-    return render(request, 'profile.html')  
+    user = request.user.pk
+    profile = Profile.objects.all()
+    profile = Profile.objects.filter(user=request.user.pk)
+    context = {'profile': profile}
+    return render(request, 'profile.html',context)  
 
 def update_profile(request):
     form = UpdateProfileForm()
     user = request.user
-    profile = Profile.objects.get(user=user)
+    # profile = Profile.objects.get(user=user)
     if request.method == 'POST':
         form = UpdateProfileForm(request.POST,request.FILES)
         if form.is_valid():
@@ -59,4 +63,4 @@ def update_profile(request):
             return redirect('profile')
         else:
             form = UpdateProfileForm() 
-    return render(request, 'update_profile.html')       
+    return render(request, 'update_profile.html',{'form':form})       
