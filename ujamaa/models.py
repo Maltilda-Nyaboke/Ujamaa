@@ -11,6 +11,13 @@ class Location(models.Model):
     name = models.CharField(max_length=30)
     posted = models.DateTimeField(auto_now_add=True)
 
+    def save_location(self):
+        self.save()
+
+    def __str__(self):
+        return self.name
+
+
 class Neighborhood(models.Model):
     name = models.CharField(max_length=75)
     location = models.ForeignKey(Location,on_delete=models.CASCADE)
