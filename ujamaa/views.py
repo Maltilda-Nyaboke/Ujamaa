@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .forms import RegisterForm,UpdateProfileForm
+from .forms import RegisterForm,UpdateProfileForm,NewsLetterForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from .email import send_welcome_email
 from .models import *
 
 # Create your views here.
@@ -18,9 +19,15 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
+            name = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+
+            recipient = NewsLetterRecipients(name = name,email =email)
+            recipient.save()
+            send_welcome_email(name,email)
             form.save()
-            return redirect('login')
-    else:        
+            return HttpResponseRedirect(reverse('home'))
+    else:    
         form = RegisterForm()
     return render(request, 'register.html',{'form':form}) 
 
