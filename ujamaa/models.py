@@ -45,6 +45,7 @@ class Profile(models.Model):
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
+    image =models.ImageField(upload_to='images')
     email = models.EmailField(max_length=50)
     description = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

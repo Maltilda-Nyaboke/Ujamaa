@@ -1,3 +1,4 @@
+from pyexpat import model
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth import login,authenticate
@@ -20,3 +21,8 @@ class UpdateProfileForm(ModelForm):
     class Meta():
         model = Profile
         exclude = ['user']
+
+class BusinessForm(ModelForm):
+    class Meta():
+        model = Business
+        fields = ('name','image', 'email','description')       
