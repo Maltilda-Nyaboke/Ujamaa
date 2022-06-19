@@ -30,6 +30,9 @@ class Neighborhood(models.Model):
     def create_neigborhood(self):
         self.save()
 
+    def delete_neigborhood(self):
+        self.delete()    
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -58,7 +61,10 @@ class Business(models.Model):
         self.delete()
 
     def update_business(self):
-        self.update()    
+        self.update()   
+
+    def __str__(self):
+        return self.name     
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
