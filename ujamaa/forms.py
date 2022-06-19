@@ -25,4 +25,9 @@ class UpdateProfileForm(ModelForm):
 class BusinessForm(ModelForm):
     class Meta():
         model = Business
-        fields = ('name','image', 'email','description')       
+        fields = ('name','image', 'email','description')  
+
+class PostForm(ModelForm):
+    class Meta():
+        model = Post
+        fields = ('title','image','content')             
