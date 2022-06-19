@@ -31,7 +31,10 @@ class Neighborhood(models.Model):
         self.save()
 
     def delete_neigborhood(self):
-        self.delete()    
+        self.delete() 
+
+    def update_neigborhood(self):
+        self.update()        
 
 
 class Profile(models.Model):
