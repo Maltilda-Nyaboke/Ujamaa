@@ -70,6 +70,11 @@ class Profile(models.Model):
     
     def update(self):
         self.save()    
+   
+   
+    def __str__(self):
+        return self.contact
+
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
@@ -99,3 +104,5 @@ class Post(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, default=1)
     posted = models.DateTimeField(auto_now_add=True)    
 
+    def create_post(self):
+        self.save()
