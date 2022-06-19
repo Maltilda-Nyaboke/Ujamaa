@@ -51,6 +51,10 @@ class Business(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
 
+    def create_business(self):
+        self.save()
+
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     image =models.ImageField(upload_to='images')
