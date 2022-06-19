@@ -66,4 +66,10 @@ def update_profile(request):
     return render(request, 'update_profile.html',{'form':form}) 
 
 def search(request):
-    return render(request, 'search.html')          
+    query = request.GET.get('query')
+    if query:
+        business = Business.objects.filter(
+            Q(name__icontains=query)
+        )
+        context = {'business': business}
+        return render(request, 'search.html',context)          
