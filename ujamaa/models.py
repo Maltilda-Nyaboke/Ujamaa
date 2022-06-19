@@ -24,19 +24,34 @@ class Neighborhood(models.Model):
     location = models.ForeignKey(Location,on_delete=models.CASCADE)
     occupants_count = models.IntegerField(default=0)
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
 
 
     def create_neigborhood(self):
         self.save()
 
-    def delete_neigborhood(self):
-        self.delete() 
+    @classmethod
+    def delete_neighbourhood(cls, id):
+        cls.objects.filter(id=id).delete()
 
     def update_neigborhood(self):
         self.update()        
     def update_occupants(self):
         self.update() 
+
+
+    @classmethod
+    def search_by_name(cls, search_term):
+        hood = cls.objects.filter(name__icontains=search_term)
+        return hood   
+
+    @classmethod
+    def find_neigborhood(cls, id):
+        hood = cls.objects.get(id=id)
+        return hood     
+
+    def __str__(self):
+        return self.occupants_count     
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -49,6 +64,9 @@ class Profile(models.Model):
 
     def save_profile(self):
         self.save()
+
+    def update(self):
+        self.save()    
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
