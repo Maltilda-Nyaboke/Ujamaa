@@ -63,4 +63,7 @@ def update_profile(request):
             return redirect('profile')
         else:
             form = UpdateProfileForm() 
-    return render(request, 'update_profile.html',{'form':form})       
+    return render(request, 'update_profile.html',{'form':form}) 
+
+def search(request):
+    return render(request, 'search.html')          
