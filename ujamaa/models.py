@@ -57,6 +57,9 @@ class Business(models.Model):
     def delete_business(self):
         self.delete()
 
+    def update_business(self):
+        self.update()    
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     image =models.ImageField(upload_to='images')
