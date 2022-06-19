@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .forms import RegisterForm,UpdateProfileForm,NewsLetterForm
+from .forms import NeighborhoodForm, RegisterForm,UpdateProfileForm,NewsLetterForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login as auth_login
@@ -14,7 +14,16 @@ from .models import *
 # Create your views here.
 
 def home(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        form = NeighborhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return render('home')
+    else:
+        form = NeighborhoodForm()
+        neighborhoods = Neighborhood.objects.all()
+        neighborhoods = neighborhoods[::-1]        
+    return render(request, 'index.html',{'form':form, 'neighborhoods':neighborhoods})
 
 def register(request):
     if request.method == 'POST':
