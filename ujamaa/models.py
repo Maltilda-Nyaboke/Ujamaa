@@ -106,3 +106,6 @@ class Post(models.Model):
 
     def create_post(self):
         self.save()
+
+    def delete_post(self):
+        self.delete()
