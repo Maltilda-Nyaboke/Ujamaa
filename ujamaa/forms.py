@@ -1,3 +1,4 @@
+from dataclasses import field
 from pyexpat import model
 from django import forms
 from django.forms import ModelForm
@@ -30,4 +31,10 @@ class BusinessForm(ModelForm):
 class PostForm(ModelForm):
     class Meta():
         model = Post
-        fields = ('title','image','content')             
+        fields = ('title','image','content')   
+
+
+class NeighborhoodForm(ModelForm):
+    class Meta():
+        model = Neighborhood 
+        exclude = ['admin']                 

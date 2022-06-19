@@ -12,7 +12,7 @@ from .models import *
 # Create your views here.
 
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'index.html')
 
 def register(request):
     if request.method == 'POST':
