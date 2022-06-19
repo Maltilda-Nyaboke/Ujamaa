@@ -109,3 +109,7 @@ class Post(models.Model):
 
     def delete_post(self):
         self.delete()
+
+    def update_post(self):
+        self.update()
+    
