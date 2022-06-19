@@ -54,6 +54,8 @@ class Business(models.Model):
     def create_business(self):
         self.save()
 
+    def delete_business(self):
+        self.delete()
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
