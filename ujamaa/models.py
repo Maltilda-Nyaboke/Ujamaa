@@ -113,3 +113,5 @@ class Post(models.Model):
     def update_post(self):
         self.update()
     
+    def __str__(self):
+        return self.content
