@@ -35,7 +35,8 @@ class Neighborhood(models.Model):
 
     def update_neigborhood(self):
         self.update()        
-
+    def update_occupants(self):
+        self.update() 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
