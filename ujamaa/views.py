@@ -27,7 +27,7 @@ def register(request):
             recipient.save()
             send_welcome_email(name,email)
             form.save()
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('login'))
     else:    
         form = RegisterForm()
     return render(request, 'register.html',{'form':form}) 
