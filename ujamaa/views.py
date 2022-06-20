@@ -95,10 +95,10 @@ def search(request):
 def neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id=id)
     if request.method == 'POST':
-        form_post = PostForm(request.POST, request.FILES)
+        post_form = PostForm(request.POST, request.FILES)
         business_form = BusinessForm(request.POST, request.FILES)
-        if form_post.is_valid():
-            post = form_post.save(commit=False)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
             post.neighborhood = neighborhood
             post.user = request.user
             post.save()
@@ -124,3 +124,10 @@ def join_hood(request,id):
     request.user.profile.neighborhood = neighborhood
     request.user.profile.save()
     return redirect('neighborhood', id = neighborhood.id)            
+
+
+def leave_hood(request,id):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return redirect('home')

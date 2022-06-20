@@ -4,21 +4,26 @@
 {% block content %}
 <div class="container-fluid mt-2" >
     <img src="{% static 'photos/landing.jpg' %}"class="img-fluid" alt="landing" style="height:80vh; width:100%">
-    <h3>YELLOW</h3>
+  <div class="container mt-5">
+    <h3 class="text-center" style="color:#672666 ;">NEIGHBORHOODS</h3>
+    <hr>
     {% if neighborhoods %}
-    {% for neighbor in neighborhoods %}
+    {% for neighborhood in neighborhoods %}
 
-<p>{{neighborhood.name}}</p>
-
+    <div class="d-flex align-items-center mt-5">
+      <div class="flex-shrink-0">
+        <img src="{{neighborhood.image.url}}" class="img-fluid" alt="image" style="height:50vh">
+      </div>
+      <div class="flex-grow-1 ms-3">
+        <h3 style="color:#672666 ;">{{neighborhood.name}}</h3>
+        <p>{{neighborhood.description}}</p>
+        <a href=""><button type="button" class="btn" style="background-color:#7A981C; color:white;">Join hood</button></a>
+      </div>
+    </div>
     {% endfor %}
     {% endif %}
-    <div class="d-flex align-items-center">
-        <div class="flex-shrink-0">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/Others/placeholder1.webp" alt="Generic placeholder image">
-        </div>
-        <div class="flex-grow-1 ms-3">
-          This is some content from a media component. You can replace this with any content and adjust it as needed.
-        </div>
-      </div>
+  </div>
+   
+    
 </div>
 {% endblock %}

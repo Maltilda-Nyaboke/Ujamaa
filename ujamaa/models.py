@@ -1,3 +1,4 @@
+from pydoc import describe
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -21,6 +22,7 @@ class Location(models.Model):
 class Neighborhood(models.Model):
     name = models.CharField(max_length=75)
     image =models.ImageField(upload_to='images')
+    description = models.TextField(null=True)
     location = models.ForeignKey(Location,on_delete=models.CASCADE)
     occupants_count = models.IntegerField(default=0)
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
