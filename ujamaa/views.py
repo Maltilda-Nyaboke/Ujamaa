@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .forms import NeighborhoodForm, RegisterForm,UpdateProfileForm,NewsLetterForm
+from .forms import *
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login as auth_login
@@ -92,8 +92,31 @@ def search(request):
         )
         context = {'business': business}
         return render(request, 'search.html',context) 
-def neighborhood(request):
-    return render(request, 'neighborhood.html')
+def neighborhood(request,id):
+    neighborhood = Neighborhood.objects.get(id=id)
+    if request.method == 'POST':
+        form_post = PostForm(request.POST, request.FILES)
+        business_form = BusinessForm(request.POST, request.FILES)
+        if form_post.is_valid():
+            post = form_post.save(commit=False)
+            post.neighbourhood = neighborhood
+            post.user = request.user
+            post.save()
+        if business_form.is_valid():
+            business = business_form.save(commit=False)
+            business.neighbourhood = neighborhood
+            business.user = request.user
+            business.save()
+            return redirect('neighborhood',id)
+    else:
+        post_form = PostForm()
+        business_form = BusinessForm()
+        current_user = request.user
+        neighborhood = Neighborhood.objects.get(id=id)
+        business = Business.objects.filter(neighbourhood_id=neighborhood)
+        users = Profile.objects.filter(neighborhood=neighborhood)
+        posts = Post.objects.filter(neighborhood=neighborhood)
+    return render(request, 'neighborhood.html', {'post_form':post_form, 'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
 
 def join_hood(request,id):
     neighborhood = get_object_or_404(Neighborhood, id=id)
