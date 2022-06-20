@@ -92,7 +92,8 @@ def search(request):
         )
         context = {'business': business}
         return render(request, 'search.html',context) 
-
+def neighborhood(request):
+    return render(request, 'neighborhood.html')
 
 def join_hood(request,id):
     neighborhood = get_object_or_404(Neighborhood, id=id)
