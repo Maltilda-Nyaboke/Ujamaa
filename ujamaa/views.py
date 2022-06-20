@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse
@@ -94,5 +94,8 @@ def search(request):
         return render(request, 'search.html',context) 
 
 
-def join(request,id):
-    return render(request,)                 
+def join_hood(request,id):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    request.user.profile.neighborhood = neighborhood
+    request.user.profile.save()
+    return redirect('neighborhood', id = neighborhood.id)            
