@@ -7,10 +7,10 @@
     <div class="row mt-5">
         <div class="col-md-3"></div>
         <div class="col-md-6"style="margin-bottom:200px">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form|crispy}}
-                <button type="submit" class="btn btn-dark">Register</button>
+                <button type="submit" class="btn" style="background-color:#7A981C; color:white;">Register</button>
 
             </form>
         </div>

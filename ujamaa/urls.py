@@ -12,7 +12,8 @@ urlpatterns = [
     path('profile/',views.profile, name='profile'),
     path('update_profile/',views.update_profile, name='update_profile'),
     path('search/',views.search, name='search'),
-    path('join/',views.join_hood, name='join'),
+    path('join/<int:id>/',views.join_hood, name='join'),
+    path('leave/',views.leave_hood, name='leave'),
     path ('neighborhood/<int:id>',views.neighborhood, name='neighborhood'),
 ]
 if settings.DEBUG:

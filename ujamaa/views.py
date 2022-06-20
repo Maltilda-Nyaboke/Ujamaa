@@ -113,17 +113,16 @@ def neighborhood(request,id):
         business_form = BusinessForm()
         user = request.user
         neighborhood = Neighborhood.objects.get(id=id)
-        business = Business.objects.filter(id=neighborhood)
+        business = Business.objects.filter(id=neighborhood.id)
         users = Profile.objects.filter(neighborhood=neighborhood)
         posts = Post.objects.filter(neighborhood=neighborhood)
-        context = {'post_form':post_form, 'business_form': business_form, 'users':users,'user':user, 'neighborhood':neighborhood,'business':business,'posts':posts}
-    return render(request, 'neighborhood.html',context)
+        return render(request, 'neighborhood.html',{'post_form':post_form, 'business_form': business_form, 'user':user, 'neighborhood':neighborhood,'business':business,'users':users,'posts':posts})
 
 def join_hood(request,id):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     request.user.profile.neighborhood = neighborhood
     request.user.profile.save()
-    return redirect('neighborhood', id = neighborhood.id)            
+    return redirect('neighborhood', id = neighborhood.id) 
 
 
 def leave_hood(request,id):
