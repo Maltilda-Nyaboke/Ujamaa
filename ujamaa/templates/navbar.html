@@ -1,81 +1,66 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light">
     <!-- Container wrapper -->
-    <div class="container-fluid" style="color: #333C4E;">
-      <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-  
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="color: #333C4E;">
-        <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="#" style="color: #333C4E;">Ujamaa</a>
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="color: #333C4E;">
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="color: #333C4E;">Admin</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="color: #333C4E;">Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="color: #333C4E;">Projects</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-      <!-- Collapsible wrapper -->
-  
-      <!-- Right elements -->
-      <div class="d-flex align-items-center">
-        <form class="d-flex input-group w-auto">
-            <input
-              type="search"
-              class="form-control rounded"
-              placeholder="Search"
-              aria-label="Search"
-              aria-describedby="search-addon"
-            />
-            <span class="input-group-text border-0" id="search-addon">
-              <i class="fas fa-search"></i>
-            </span>
-          </form>
-          <div class="d-flex align-items-center">
-            <button type="button" class="btn btn-link px-3 me-2" style="color: #333C4E;">
-              Login
-            </button>
-            <button type="button" class="btn me-3" style="background-color:#7A981C; color:white;">
-              Sign up for free
-            </button>
-            </div>
-        <!-- Icon -->
-        <ul>
-            <li class="nav-item dropdown" style="list-style:none;color: #333C4E;">
-              <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false" style="color: #333C4E;">
-                <i class="fas fa-user"></i>
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown" style="color: #333C4E;">
-                <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
-                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                <li>
-                  <hr class="dropdown-divider">
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="color: #333C4E;">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="{% url 'home' %}" style="color: #333C4E;">Ujamaa</a>
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="color: #333C4E;">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: #333C4E;">Admin</a>
                 </li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: #333C4E;">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: #333C4E;">Projects</a>
+                </li>
+            </ul>
+            <!-- Left links -->
         </div>
-      </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+            <form class="d-flex input-group w-auto">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                    aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+            </form>
+            <div class="d-flex align-items-center">
+                <a href="{% url 'login' %}"><button type="button" class="btn me-2" style="color: #333C4E;">Login</button></a>
+                <a href="{% url 'register' %}"><button type="button" class="btn me-3" style="background-color:#7A981C; color:white;">Sign up for free</button></a>
+            </div>
+            <!-- Icon -->
+            <ul>
+                <li class="nav-item dropdown" style="list-style:none;color: #333C4E;">
+                    <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="color: #333C4E;">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown" style="color: #333C4E;">
+                        <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
     <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
+</nav>
+<!-- Navbar -->

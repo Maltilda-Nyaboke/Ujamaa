@@ -2,16 +2,25 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid">
-    <img src="{% static 'photos/landing.jpg' %}" alt="landing" style="height:80vh; width:100%">
-    <div class="mask">
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <div class="text-white" style="background-color: rgba(0, 0, 0, 0.7); width:60vw;">
-            <h1 class=" text-center mb-3">UJAMAA COMMUNITY CENTER</h1>
-            <h5 class=" text-center mb-4">Where neighbors support each other</h5>
+<div class="container-fluid mt-2" >
+    <img src="{% static 'photos/landing.jpg' %}"class="img-fluid" alt="landing" style="height:80vh; width:100%">
+    {% if neighborhoods %}
+    {% for hood in neighborhoods %}
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="..." class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{hood.name}}</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
           </div>
         </div>
       </div>
-  
+      {% endfor %}
+      {% endif %}
 </div>
 {% endblock %}

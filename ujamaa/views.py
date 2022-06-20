@@ -17,7 +17,9 @@ def home(request):
     if request.method == 'POST':
         form = NeighborhoodForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            neighborhood = form.save(commit=False)
+            neighborhood.admin = request.user
+            neighborhood.save()
             return render('home')
     else:
         form = NeighborhoodForm()
