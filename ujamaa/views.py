@@ -72,7 +72,7 @@ def profile(request):
 def update_profile(request):
     form = UpdateProfileForm()
     user = request.user
-    # profile = Profile.objects.get(user=user)
+    profile = Profile.objects.get(user=user)
     if request.method == 'POST':
         form = UpdateProfileForm(request.POST,request.FILES)
         if form.is_valid():
@@ -94,5 +94,5 @@ def search(request):
         return render(request, 'search.html',context) 
 
 
-def join(request):
+def join(request,id):
     return render(request,)                 

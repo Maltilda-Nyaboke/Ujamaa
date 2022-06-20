@@ -51,7 +51,7 @@ class Neighborhood(models.Model):
         return hood     
 
     def __str__(self):
-        return self.occupants_count     
+        return self.name     
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

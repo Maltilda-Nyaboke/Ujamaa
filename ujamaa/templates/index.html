@@ -5,6 +5,14 @@
 <div class="container-fluid mt-2" >
     <img src="{% static 'photos/landing.jpg' %}"class="img-fluid" alt="landing" style="height:80vh; width:100%">
     <h3>YELLOW</h3>
+    <p>{{neighborhood.name}}</p>
+    {% if neighborhoods %}
+    {% for neighbor in neighborhoods %}
+
+<p>{{neighborhood.name}}</p>
+
+    {% endfor %}
+    {% endif %}
     <div class="d-flex align-items-center">
         <div class="flex-shrink-0">
           <img src="https://mdbcdn.b-cdn.net/img/Photos/Others/placeholder1.webp" alt="Generic placeholder image">
