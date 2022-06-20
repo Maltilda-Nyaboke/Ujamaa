@@ -89,4 +89,8 @@ def search(request):
             Q(name__icontains=query)
         )
         context = {'business': business}
-        return render(request, 'search.html',context)          
+        return render(request, 'search.html',context) 
+
+
+def join(request):
+    return render(request,)                 
