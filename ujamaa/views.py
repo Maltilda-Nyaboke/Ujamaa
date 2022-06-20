@@ -99,24 +99,25 @@ def neighborhood(request,id):
         business_form = BusinessForm(request.POST, request.FILES)
         if form_post.is_valid():
             post = form_post.save(commit=False)
-            post.neighbourhood = neighborhood
+            post.neighborhood = neighborhood
             post.user = request.user
             post.save()
         if business_form.is_valid():
             business = business_form.save(commit=False)
-            business.neighbourhood = neighborhood
+            business.neighborhood = neighborhood
             business.user = request.user
             business.save()
             return redirect('neighborhood',id)
     else:
         post_form = PostForm()
         business_form = BusinessForm()
-        current_user = request.user
+        user = request.user
         neighborhood = Neighborhood.objects.get(id=id)
-        business = Business.objects.filter(neighbourhood_id=neighborhood)
+        business = Business.objects.filter(id=neighborhood)
         users = Profile.objects.filter(neighborhood=neighborhood)
         posts = Post.objects.filter(neighborhood=neighborhood)
-    return render(request, 'neighborhood.html', {'post_form':post_form, 'business_form': business_form, 'users':users,'current_user':current_user, 'neighborhood':neighborhood,'business':business,'posts':posts})
+        context = {'post_form':post_form, 'business_form': business_form, 'users':users,'user':user, 'neighborhood':neighborhood,'business':business,'posts':posts}
+    return render(request, 'neighborhood.html',context)
 
 def join_hood(request,id):
     neighborhood = get_object_or_404(Neighborhood, id=id)

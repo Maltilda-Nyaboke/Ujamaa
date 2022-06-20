@@ -13,6 +13,7 @@ urlpatterns = [
     path('update_profile/',views.update_profile, name='update_profile'),
     path('search/',views.search, name='search'),
     path('join/',views.join_hood, name='join'),
+    path ('neighborhood/<int:id>',views.neighborhood, name='neighborhood'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
