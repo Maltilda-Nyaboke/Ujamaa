@@ -4,23 +4,14 @@
 {% block content %}
 <div class="container-fluid mt-2" >
     <img src="{% static 'photos/landing.jpg' %}"class="img-fluid" alt="landing" style="height:80vh; width:100%">
-    {% if neighborhoods %}
-    {% for hood in neighborhoods %}
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="..." class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{hood.name}}</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-          </div>
+    <h3>YELLOW</h3>
+    <div class="d-flex align-items-center">
+        <div class="flex-shrink-0">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/Others/placeholder1.webp" alt="Generic placeholder image">
+        </div>
+        <div class="flex-grow-1 ms-3">
+          This is some content from a media component. You can replace this with any content and adjust it as needed.
         </div>
       </div>
-      {% endfor %}
-      {% endif %}
 </div>
 {% endblock %}
