@@ -94,31 +94,30 @@ def search(request):
         return render(request, 'search.html',context) 
 def neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id=id)
+    current_user = request.user
+    business = Business.objects.filter(neighborhood=neighborhood)
+    users = Profile.objects.filter(neighborhood=neighborhood)
+    posts = Post.objects.filter(neighborhood=neighborhood)
     if request.method == 'POST':
-        if post_form in request.POST:
-            post_form = PostForm(request.POST, request.FILES,prefix=post_form)
-            if post_form.is_valid():
-                post = post_form.save(commit=False)
-                post.neighborhood = neighborhood
-                post.user = request.user
-                post.save()
-            business_form = BusinessForm(prefix=business_form)
-        elif 'business_form' in request.POST:
-            business_form = BusinessForm(request.POST, request.FILES,prefix=business_form)
-            if business_form.is_valid():
-                business = business_form.save(commit=False)
-                business.neighborhood = neighborhood
-                business.user = request.user
-                business.save()
-            return redirect('neighborhood',id)
+        post_form = PostForm(request.POST, request.FILES,prefix="post_form")
+        business_form = BusinessForm(request.POST, request.FILES,prefix='business_form')
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.neighborhood = neighborhood
+            post.user = request.user
+            post.save()
+        elif business_form.is_valid():
+            business = business_form.save(commit=False)
+            business.neighborhood = neighborhood
+            business.user = request.user
+            business.save()
+        else:    
+            post_form = PostForm(prefix='post_form')
+            business_form = BusinessForm(prefix='business_form')
+        return redirect('neighborhood',id)
     else:
         post_form = PostForm(prefix='post_form')
         business_form = BusinessForm(prefix='business_form')
-        current_user = request.user
-        neighborhood = Neighborhood.objects.get(id=id)
-        business = Business.objects.filter(id=neighborhood.id)
-        users = Profile.objects.filter(neighborhood=neighborhood)
-        posts = Post.objects.filter(neighborhood=neighborhood)
     context ={
                 'post_form':post_form,
                 'business_form': business_form,

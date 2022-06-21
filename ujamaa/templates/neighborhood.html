@@ -8,6 +8,9 @@
     <div class="banner" style="background-color:#7A981C; color:white; height: 50vh;">
         <h1 class=" display-1 text-center">Welcome to {{neighborhood.name}}</h1>
         <h2 class="text-muted text-center">Its always a pleasure to have you around</h2>
+        {% if request.user.profile.neighborhood == neighborhood %}
+       <a href="{% url 'leave' neighborhood.id %}"><button type="button me-3" class="btn" id="leave" style="background-color:#672666; color:white;float:right;">Leave {{neighborhood.name}}</button></a> 
+       {% endif %}
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-4">
@@ -33,6 +36,7 @@
                             <li class=dropdown-item><strong>{{neighborhood.occupants_count}}</strong></li>
                         </ul>
                     </div>
+                    
                 </div>
                 <div class="col-md-4">
                     <div class="dropdown m-2">
@@ -50,13 +54,12 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
     <div class="container mb-5">
         <div class="row">
-            {% if posts %}
-            {% for post in posts %}
             <div class="col-md-6">
                 <h3 class="text-center">Posts</h3>
                 <!-- Button trigger modal -->
@@ -88,7 +91,8 @@
                         </div>
                     </div>
                 </div>
-
+                {% if posts %}
+                {% for post in posts %}
                 <hr>
                 <div class="card mb-3">
                     <img src="{{post.image.url}}" class="img-fluid" class="card-img-top" alt="post">
@@ -100,51 +104,18 @@
                 </div>
                 {% endfor %}
                 {%else%}
-                <h3 class="text-center">Posts</h3>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    style="background-color:#7A981C; color:white;">
-                    Add Post
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add a post</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    {{post_form|crispy}}
-                                    <button type="submit" class="btn"
-                                        style="background-color:#7A981C; color:white; margin-top: 20px;">Submit</button>
-
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
                 <hr>
                 <p>There are no Available posts</p>
                 {% endif %}
             </div>
             <div class="col-md-6">
-                {% if business %}
-                {% for business in business}
                 <h3 class="text-center">Businesses</h3>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
                     style="background-color:#7A981C; color:white;">
                     Post Business
                 </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -167,50 +138,34 @@
                     </div>
                 </div>
 
-                <hr>
+                {% if business %}
+                {% for business in business %}
                 <div class="card mb-3">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="{{business.image.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{business.name}}</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">{{business.description}}</p>
                         <p class="card-text"><small class="text-muted"></small></p>
                     </div>
                 </div>
-            </div>
-            {%else%}
-            <h3 class="text-center">Businesses</h3>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                style="background-color:#7A981C; color:white;">
-                Post Business
-            </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Post your business</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="" method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                {{business_form|crispy}}
-                                <button type="submit" class="btn"
-                                    style="background-color:#7A981C; color:white; margin-top: 20px;">Submit</button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            
+            {% endfor %}
+            {% else %}
             <hr>
             <p>There are no Available Businesses</p>
             {% endif %}
         </div>
+        
+        </div>
+        </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+
+    $('#leave').on('click', function () {
+        return confirm('Are you sure you want to leave {{neighborhood.name}}?');
+    });
+</script>
 
 {% endblock %}
