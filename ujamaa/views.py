@@ -95,28 +95,40 @@ def search(request):
 def neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id=id)
     if request.method == 'POST':
-        post_form = PostForm(request.POST, request.FILES)
-        business_form = BusinessForm(request.POST, request.FILES)
-        if post_form.is_valid():
-            post = post_form.save(commit=False)
-            post.neighborhood = neighborhood
-            post.user = request.user
-            post.save()
-        if business_form.is_valid():
-            business = business_form.save(commit=False)
-            business.neighborhood = neighborhood
-            business.user = request.user
-            business.save()
+        if post_form in request.POST:
+            post_form = PostForm(request.POST, request.FILES,prefix=post_form)
+            if post_form.is_valid():
+                post = post_form.save(commit=False)
+                post.neighborhood = neighborhood
+                post.user = request.user
+                post.save()
+            business_form = BusinessForm(prefix=business_form)
+        elif 'business_form' in request.POST:
+            business_form = BusinessForm(request.POST, request.FILES,prefix=business_form)
+            if business_form.is_valid():
+                business = business_form.save(commit=False)
+                business.neighborhood = neighborhood
+                business.user = request.user
+                business.save()
             return redirect('neighborhood',id)
     else:
-        post_form = PostForm()
-        business_form = BusinessForm()
-        user = request.user
+        post_form = PostForm(prefix='post_form')
+        business_form = BusinessForm(prefix='business_form')
+        current_user = request.user
         neighborhood = Neighborhood.objects.get(id=id)
         business = Business.objects.filter(id=neighborhood.id)
         users = Profile.objects.filter(neighborhood=neighborhood)
         posts = Post.objects.filter(neighborhood=neighborhood)
-        return render(request, 'neighborhood.html',{'post_form':post_form, 'business_form': business_form, 'user':user, 'neighborhood':neighborhood,'business':business,'users':users,'posts':posts})
+    context ={
+                'post_form':post_form,
+                'business_form': business_form,
+                'current_user':current_user,
+                'neighborhood':neighborhood,
+                'business':business,
+                'users':users,
+                'posts':posts
+        }
+    return render(request, 'neighborhood.html',context)
 
 def join_hood(request,id):
     neighborhood = get_object_or_404(Neighborhood, id=id)
