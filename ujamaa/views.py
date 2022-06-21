@@ -20,7 +20,7 @@ def home(request):
             neighborhood = form.save(commit=False)
             neighborhood.admin = request.user
             neighborhood.save()
-            return render('home')
+            return redirect('home')
     else:
         form = NeighborhoodForm()
         neighborhoods = Neighborhood.objects.all()

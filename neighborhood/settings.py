@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ujamaa.apps.UjamaaConfig',
     'crispy_forms',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
